@@ -1,20 +1,25 @@
+// MAX BINARY HEAP - insert
+// parent nodes are always larger than child nodes
+
 class MaxBinaryHeap {
 	constructor() {
 		this.values = []; // store heap here
 	}
 	insert(element) {
-		this.values.push(element);
-		this.bubbleUp();
+		this.values.push(element); // first step: add the new element to the end
+		this.bubbleUp(); // second step: bubble it up when required
 	}
 	bubbleUp() {
 		let idx = this.values.length - 1;
 		const element = this.values[idx];
 		while (idx > 0) {
-			let parentIdx = Math.floor((idx - 1) / 2); // find parent
+			let parentIdx = Math.floor((idx - 1) / 2); // find parent, standard heap logic
 			let parent = this.values[parentIdx];
 			if (element <= parent) break; // element in correct position
-			this.values[parentIdx] = element; // assigning the higher value
-			this.values[idx] = parent; // assigning the lower value
+
+			// effect the change of positions
+			this.values[parentIdx] = element; // assigning new element to the higher position
+			this.values[idx] = parent; // assigning the lower value to the lower position
 			idx = parentIdx; // move upwards, compare now with next parent
 		}
 	}

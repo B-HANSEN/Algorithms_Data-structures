@@ -1,13 +1,15 @@
+// MAX BINARY HEAP - extract
+// parent nodes are always larger than child nodes
+// usually extract the root, procedure for deleting the root from the heap and restoring the properties: down-heap
+
 class MaxBinaryHeap {
 	constructor() {
 		this.values = [];
 	}
 	extractMax() {
-		// remove the root
-		const max = this.values[0];
+		const max = this.values[0]; // extract root
 		const end = this.values.pop(); // pop off last item
-		if (this.values.length > 0) {
-			// require conditional, otherwise pop off and reset it back in after that
+		if (this.values.length > 0) { // require conditional, otherwise pop off and reset it back in after that
 			this.values[0] = end; // put last item into root
 			this.sinkDown(); // then sink down
 		}
@@ -23,28 +25,24 @@ class MaxBinaryHeap {
 			let leftChild, rightChild;
 			let swap = null;
 
-			if (leftChildIdx < length) {
-				// check if in bounds
+			if (leftChildIdx < length) { // check if in bounds
 				leftChild = this.values[leftChildIdx];
-				if (leftChild > element) {
-					swap = leftChildIdx;
-				}
+				if (leftChild > element) swap = leftChildIdx;
 			}
-			if (rightChildIdx < length) {
-				// check if valid index
+			if (rightChildIdx < length) { // check if valid index
 				rightChild = this.values[rightChildIdx];
 				if (
 					(swap === null && rightChild > element) ||
-					(swap !== null && rightChild > leftChild)
+					(swap !== null && rightChild > leftChild) // need to swap with the larger child node
 				) {
 					swap = rightChildIdx;
 				}
 			}
 
 			if (swap === null) break;
-			this.values[idx] = this.values[swap]; // [swap] is left or right child index
-			this.values[swap] = element;
-			idx = swap;
+			this.values[idx] = this.values[swap]; // [swap] is left or right child index; move up the bigger child
+			this.values[swap] = element; // put the element into the swap position of the right child
+			idx = swap; // continue at the swap position
 		}
 	}
 }
